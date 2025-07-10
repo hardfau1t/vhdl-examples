@@ -23,14 +23,28 @@ export def analyze [] {
     | where $is_fresh
     | each {|src_file|
         log info $"building ($src_file)"
-        ghdl -a --std=($env.VHDL_VERSION) --workdir=($env.BUILD_DIR) $src_file
+        try {
+            ghdl -a --std=($env.VHDL_VERSION) --workdir=($env.BUILD_DIR) $src_file
+        } catch {|err|
+            log error $"Error while compiling ($src_file): ($err.msg)"
+        }
     }
     | ignore
 }
 
+def entities [] {
+    try {
+        ghdl -d --workdir=($env.BUILD_DIR) --std=($env.VHDL_VERSION) 
+        | parse 'entity {entity}'
+        | get entity
+    } catch {
+        []
+    }
+}
+
 export def run [
     --no-analyze(-n)
-    entity: string
+    entity: string@entities
 ] {
     if (not $no_analyze) {
         analyze
