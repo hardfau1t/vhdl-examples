@@ -100,8 +100,11 @@ gtkwave build/<your_entity_name>.ghw
 
 ## Configuration
 
-- VHDL version: 2008 (configurable via `$env.VHDL_VERSION`)
-- Default simulation time: 1 microsecond
-- Build directory: `build/`
-- Source directory: `src/`
-- Test directory: `tests/`
+The following environment variables are used to configure the project:
+
+- `$env.VHDL_VERSION`: VHDL version (default: "08" for VHDL-2008)
+- `$env.BUILD_DIR`: Build directory (default: "build/")
+- `$env.SRC_DIR`: Source directory (default: "src/")
+- `$env.TEST_DIR`: Test directory (default: "tests/")
+
+You can modify these variables in the `utils.nu` file or override them in your Nushell session.
