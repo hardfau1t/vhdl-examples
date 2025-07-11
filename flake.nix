@@ -19,7 +19,7 @@
           ghdl
           gtkwave
         ];
-        shellHook = "exec nu";
+        shellHook = "exec nu -e 'overlay use utils.nu'";
       };
     };
 }
